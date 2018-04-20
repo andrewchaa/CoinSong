@@ -1,40 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoinSong.Domain.Models;
 using CoinSong.Domain.Repositories;
+using GdaxApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Sulmo;
 
 namespace CoinSong.Controllers
 {
     [Route("api/[controller]")]
-    public class PricesController : Controller
+    public class HistoricalPricesController : Controller
     {
         private readonly ICoinRepository _coinRepository;
         private readonly IPriceRepository _priceRepository;
 
-        public PricesController(ICoinRepository coinRepository,
+        public HistoricalPricesController(ICoinRepository coinRepository,
             IPriceRepository priceRepository)
         {
             _coinRepository = coinRepository;
             _priceRepository = priceRepository;
         }
         
-        [HttpGet]
-        public async Task<IEnumerable<SnapshotPrice>> Get()
+        [HttpGet("{coin}")]
+        public async Task<IList<Candle>> Get([FromRoute] Coin coin, [FromQuery]int days)
         {
-            var prices = await _coinRepository.GetPricesAsync();
-
-            return prices;
-        }
-
-        [HttpGet("{id}")]
-        public async Task<SnapshotPrice> Get(string id)
-        {
-            var price = await _coinRepository.GetPriceAsync(id.To<Coin>());
-            return price;
+            return await _priceRepository.GetDailyRates(coin, days);
         }
 
         // POST api/values
