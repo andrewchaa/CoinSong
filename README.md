@@ -6,5 +6,8 @@ You can execute each strategies and see the evaluation result. More strategies w
 ## API Endpoints
 
 ```
-GET api/rates/btc?days=90     daily LHOC rates for BTC for 90 days
+GET  api/rates/btc?days=90     return daily LHOC rates for BTC for 90 days
+
+POST api/rates/btc?days=90     save daily LHOC rates for BTC for 90 days
+
 ```
