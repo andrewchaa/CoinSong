@@ -5,7 +5,7 @@ using GdaxApi.Models;
 
 namespace CoinSong.Api.Domain.Repositories
 {
-    public interface IPriceRepository
+    public interface IRatesRepository
     {
         Task<int> SaveAsync(SnapshotPrice price);
         Task<IList<Candle>> GetDailyRates(Coin coin, int days);

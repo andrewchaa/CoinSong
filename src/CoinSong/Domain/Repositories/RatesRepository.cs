@@ -14,13 +14,13 @@ using Sulmo;
 
 namespace CoinSong.Api.Domain.Repositories
 {
-    public class PriceRepository : IPriceRepository
+    public class RatesRepository : IRatesRepository
     {
         private readonly GdaxOptions _gdaxOptions;
-        private readonly ILogger<PriceRepository> _logger;
+        private readonly ILogger<RatesRepository> _logger;
         private readonly RequestAuthenticator _authenticator;
 
-        public PriceRepository(IOptions<GdaxOptions> options, ILogger<PriceRepository> logger)
+        public RatesRepository(IOptions<GdaxOptions> options, ILogger<RatesRepository> logger)
         {
             _gdaxOptions = options.Value;
             _logger = logger;

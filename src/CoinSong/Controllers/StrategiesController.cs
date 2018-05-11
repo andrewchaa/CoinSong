@@ -14,16 +14,16 @@ namespace CoinSong.Api.Controllers
     public class StrategiesController : Controller
     {
         private readonly ILogger<CoinsController> _logger;
-        private readonly IPriceRepository _priceRepository;
+        private readonly IRatesRepository _ratesRepository;
         private readonly GdaxOptions _gdaxOptions;
         private RequestAuthenticator _authenticator;
 
         public StrategiesController(ILogger<CoinsController> logger, 
             IOptions<GdaxOptions> options, 
-            IPriceRepository priceRepository)
+            IRatesRepository ratesRepository)
         {
             _logger = logger;
-            _priceRepository = priceRepository;
+            _ratesRepository = ratesRepository;
             _gdaxOptions = options.Value;
             _authenticator = new RequestAuthenticator(_gdaxOptions.ApiKey, _gdaxOptions.Passphrase, _gdaxOptions.Secret);
         }
@@ -37,8 +37,8 @@ namespace CoinSong.Api.Controllers
 
             if (strategy == Strategy.MA5)
             {
-                var candles = await _priceRepository.GetDailyRates(coin, 5);
-                var currentPrice = await _priceRepository.GetCurrentPrice(productId);
+                var candles = await _ratesRepository.GetDailyRates(coin, 5);
+                var currentPrice = await _ratesRepository.GetCurrentPrice(productId);
 
                 var strategyExecutor = new MovingAverageStrategy(candles, currentPrice);
                 var result = strategyExecutor.Execute();

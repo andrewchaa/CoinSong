@@ -21,7 +21,7 @@ namespace CoinSong.Api
         {
             services.Configure<GdaxOptions>(Configuration.GetSection("gdax"));
             services.AddTransient<ICoinRepository, CoinRepository>();
-            services.AddTransient<IPriceRepository, PriceRepository>();
+            services.AddTransient<IRatesRepository, RatesRepository>();
 
             services.AddMvc();
 

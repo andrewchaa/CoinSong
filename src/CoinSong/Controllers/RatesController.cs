@@ -11,19 +11,19 @@ namespace CoinSong.Api.Controllers
     public class RatesController : Controller
     {
         private readonly ICoinRepository _coinRepository;
-        private readonly IPriceRepository _priceRepository;
+        private readonly IRatesRepository _ratesRepository;
 
         public RatesController(ICoinRepository coinRepository,
-            IPriceRepository priceRepository)
+            IRatesRepository ratesRepository)
         {
             _coinRepository = coinRepository;
-            _priceRepository = priceRepository;
+            _ratesRepository = ratesRepository;
         }
         
         [HttpGet("{coin}")]
         public async Task<IList<Candle>> Get([FromRoute] Coin coin, [FromQuery]int days)
         {
-            return await _priceRepository.GetDailyRates(coin, days);
+            return await _ratesRepository.GetDailyRates(coin, days);
         }
 
         // POST api/values
